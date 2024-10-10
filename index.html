@@ -14,7 +14,10 @@
 
     const createScene = function() {
         const scene = new BABYLON.Scene(engine);
-        scene.clearColor = new BABYLON.Color3.Teal;
+        scene.clearColor = new BABYLON.Color3.Black;
+        const box = BABYLON.MeshBuilder.CreateBox("box", {});
+        box.position.x = 0.5;
+        box.position.y = 1;
         return scene;
     }
     
