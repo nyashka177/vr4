@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Piano in BabylonJS</title>
+        <title>Piano and Dottore</title>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
         <script src="scene.js"></script>
         <style>
