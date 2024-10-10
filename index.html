@@ -14,8 +14,8 @@
 
     const createScene = function() {
         const scene = new BABYLON.Scene(engine);
-        scene.clearColor = new BABYLON.Color3.Teal;
-
+        scene.clearColor = new BABYLON.Color3(0.28, 0.39, 0.35);
+        
         const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
         
         const box = BABYLON.MeshBuilder.CreateBox("box", {});
