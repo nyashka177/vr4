@@ -14,7 +14,7 @@
 
         const createScene = function() {
             const scene = new BABYLON.Scene(engine);
-            scene.clearColor = new BABYLON.Color3(0.17, 0.22, 0.17);
+            scene.clearColor = new BABYLON.Color3.Random();
 
             const alpha =  Math.PI/4;
             const beta = Math.PI/3;
@@ -46,6 +46,10 @@
                 }));
 
             const ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 4, height: 4});
+
+            const groundMaterial = new BABYLON.StandardMaterial("material", scene);
+            groundMaterial.diffuseColor = BABYLON.Color3.Random();
+            ground.material = groundMaterial;
 
             const xrPromise = scene.createDefaultXRExperienceAsync({
                 floorMeshes: [ground]
