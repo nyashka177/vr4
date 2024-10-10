@@ -82,9 +82,36 @@ const createScene = async function(engine) {
     // Transform Node that acts as the parent of all piano keys
     const keyboard = new BABYLON.TransformNode("keyboard");
 
-    keyParams.forEach(key => {
-        buildKey(scene, keyboard, Object.assign({register: 4, referencePositionX: 0}, key));
+    // Register 1 through 7
+    var referencePositionX = -2.4*14;
+    for (let register = 1; register <= 7; register++) {
+        keyParams.forEach(key => {
+            buildKey(scene, keyboard, Object.assign({register: register, referencePositionX: referencePositionX}, key));
+        })
+        referencePositionX += 2.4*7;
+    }
+
+    // Register 0
+    buildKey(scene, keyboard, {type: "white", note: "A", topWidth: 1.9, bottomWidth: 2.3, topPositionX: -0.20, wholePositionX: -2.4, register: 0, referencePositionX: -2.4*21});
+    keyParams.slice(10, 12).forEach(key => {
+        buildKey(scene, keyboard, Object.assign({register: 0, referencePositionX: -2.4*21}, key));
     })
+
+    // Register 8
+    buildKey(scene, keyboard, {type: "white", note: "C", topWidth: 2.3, bottomWidth: 2.3, topPositionX: 0, wholePositionX: -2.4*6, register: 8, referencePositionX: 84});
+
+    // Transform node that acts as the parent of all piano components
+    const piano = new BABYLON.TransformNode("piano");
+    keyboard.parent = piano;
+
+    // Import and scale piano frame
+    BABYLON.SceneLoader.ImportMesh("frame", "https://raw.githubusercontent.com/MicrosoftDocs/mixed-reality/docs/mixed-reality-docs/mr-dev-docs/develop/javascript/tutorials/babylonjs-webxr-piano/files/", "pianoFrame.babylon", scene, function(meshes) {
+        const frame = meshes[0];
+        frame.parent = piano;
+    });
+
+    // Lift the piano keyboard
+    keyboard.position.y += 80;
 
     const xrHelper = await scene.createDefaultXRExperienceAsync();
 
